@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -49,7 +50,10 @@ fun DecisionMakingApp() {
 
 @Composable
 fun DecisionWithButtonAndImage(modifier: Modifier = Modifier) {
-    var result by remember { mutableStateOf( 1) }
+    var output by remember { mutableStateOf("Should we go?") }
+    val yesChoices = listOf("Yes", "No")
+    val maybeChoices = listOf("Yes", "No", "No", "No")
+    val noChoices = listOf("Yes", "No", "No", "No", "No", "No", "No", "No", "No", "No")
     var clicks by remember { mutableStateOf(0) }
     Column (
         modifier = modifier,
@@ -59,25 +63,31 @@ fun DecisionWithButtonAndImage(modifier: Modifier = Modifier) {
             modifier = modifier.weight(1f),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Text("$output")
+        }
+        Row (
+            modifier = modifier.weight(1f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Button (onClick = {
-                result = (1..6).random()
+                output = yesChoices.random()
                 clicks++
             }) {
-                Text(stringResource(R.string.roll))
+                Text("Yes")
             }
             Spacer(modifier = Modifier.width(8.dp))
             Button (onClick = {
-                result = (1..6).random()
+                output = maybeChoices.random()
                 clicks++
             }) {
-                Text(stringResource(R.string.roll))
+                Text("Maybe")
             }
             Spacer(modifier = Modifier.width(8.dp))
             Button (onClick = {
-                result = (1..6).random()
+                output = noChoices.random()
                 clicks++
             }) {
-                Text(stringResource(R.string.roll))
+                Text("Nah")
             }
         }
         Row (
@@ -85,6 +95,12 @@ fun DecisionWithButtonAndImage(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text("Clicks: $clicks")
+        }
+        Row (
+            modifier = modifier.weight(1f),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("mfenna 1860531")
         }
     }
 }
